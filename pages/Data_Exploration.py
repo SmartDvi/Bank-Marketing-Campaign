@@ -41,8 +41,10 @@ available_indicators = ['age', 'job', 'marital', 'education', 'default', 'housin
                         'Employment_variation_rate', 'Consumer_price_index', 'Consumer_confidence_index',
                         'Euribor 3 month rate', 'Number of employees', 'Deposit']
 
+
+
 layout = html.Div([
-    html.H2('Overview Page'),
+    html.H2('Data Exploration'),
     # Add your overview content here
     dbc.Row([
         dbc.Col([
@@ -68,12 +70,14 @@ layout = html.Div([
             ), width=6
         ),
         dbc.Col(
-            dbc.Card(
+            dbc.Card([
+               # dbc.CardHeader("Conversion Rate by Job and Marital Status",  className='text-center fs-2'),
                 dbc.CardBody([
                     html.H5('Conversion Rate by Job and Marital Status', className='text-center'),
                     dcc.Graph(id='job_and_marital', figure={}),
-                ])
-            ), width=6
+                ]),
+                #dbc.CardFooter("Thia bar chart shows the conversion rate of the percentage of 'yes' deposits based on job type and marital status. more insight is gotten by selecting each monthor more for actionable descision making "),
+    ]), width=6
         ),
     ]),
     dbc.Row([
@@ -103,7 +107,7 @@ layout = html.Div([
           Input('month_checklist', 'value'),
           suppress_callback_exceptions=True)
 
-def update_age_group_and_loan_distribution(selected_month):
+def update_age_group_and_loan_distribution(selected_month=None):
     if not selected_month:
         return {}
     filtered_data = data[data['month'].isin(selected_month)]                                #                                                    
@@ -117,7 +121,7 @@ def update_age_group_and_loan_distribution(selected_month):
           Input('month_checklist', 'value'),
           suppress_callback_exceptions=True)
 
-def update_job_and_marital(selected_month):
+def update_job_and_marital(selected_month=None):
     if not selected_month:
         return {}
     filtered_data = data[data['month'].isin(selected_month)]
@@ -130,7 +134,7 @@ def update_job_and_marital(selected_month):
           Input('month_checklist', 'value'),
           suppress_callback_exceptions=True)
 
-def update_features_deposit(selected_month):
+def update_features_deposit(selected_month=None):
     if not selected_month:
         return {}
     filtered_data = data[data['month'].isin(selected_month)]
@@ -164,7 +168,7 @@ def update_features_deposit(selected_month):
               Input('month_checklist', 'value'),
               suppress_callback_exceptions=True)
 
-def update_month_week_conversion(selected_month):
+def update_month_week_conversion(selected_month=None):
     if not selected_month:
         return {}
     filtered_data = data[data['month'].isin(selected_month)]

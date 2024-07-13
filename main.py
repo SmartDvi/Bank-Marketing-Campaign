@@ -1,9 +1,9 @@
 import dash
-from dash import dcc, html, Input, Output
+from dash import dcc, html, Input, Output, callback
 import dash_bootstrap_components as dbc
 from pages import Overview, Table, Data_Exploration, Regression
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, '/assets/style2.css'])
+app = dash.Dash(__name__,  external_stylesheets=[dbc.themes.LUMEN, '/assets/style2.css'])
 
 # Define navigation links
 navbar = dbc.Navbar(
@@ -35,7 +35,7 @@ app.layout = dbc.Container([
 ], fluid=True)
 
 # Callback to update page content based on URL
-@app.callback(Output('page-content', 'children'),
+@callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
     if pathname == '/page-2':
@@ -49,4 +49,4 @@ def display_page(pathname):
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True, port=5050)
+    app.run(debug=True, port=5050)
